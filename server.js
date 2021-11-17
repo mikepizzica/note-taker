@@ -34,7 +34,12 @@ app.post('/api/notes', (req, res) => {
     }
     else {
         var notes = JSON.parse(results);
-        notes.push(req.body);
+        var newNote = {
+            title: req.body.title,
+            text: req.body.text,
+            id: uuid.v1()
+        }
+        notes.push(newNote);
         console.log("this is the old", notes);
         fs.writeFile("./db/db.json",JSON.stringify(notes), error => {
             if(error) {
@@ -46,7 +51,23 @@ app.post('/api/notes', (req, res) => {
         })
     }
         })
-})
+});
+
+app.delete('/api/notes/:id', (req, res) => {
+    if(req.params.id) {
+        console.log("deleting note" + req.params.id);
+        // read in the file of your database
+        // when you find object with matching id,
+        // remove from array of objects
+        
+    }
+    else{
+        res.status(400).send("Please specify a noteId");
+    }
+
+    // console.log("DELETE Request Called for /api endpoint")
+    // res.send("DELETE Request Called")
+});
 
 app.get('*', (req, res) => {
     console.log("in the *");
@@ -56,3 +77,5 @@ app.get('*', (req, res) => {
 app.listen(PORT, () => {
     console.log("listening on port 3001")
 });
+
+// /api/notes/:id from here remove note
