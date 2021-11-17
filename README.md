@@ -27,7 +27,7 @@ THEN I am presented with empty fields to enter a new note title and the note’s
 ```
 
 ## Link
-https://mikepizzica.github.io/weather-dashboard/
+https://github.com/mikepizzica/note-taker
 
 ## Screenshot
-![Screenshot of note taker](./assets/images/screenshot-weather-dashboard.png)
+![Screenshot of note taker](./assets/images/screenshot-note-taker.png)
