@@ -4,6 +4,7 @@ const app = express();
 const path = require('path');
 const fs = require('fs');
 const { ifError } = require('assert');
+const uuid = require('uuid');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -35,7 +36,7 @@ app.post('/api/notes', (req, res) => {
         var notes = JSON.parse(results);
         notes.push(req.body);
         console.log("this is the old", notes);
-        fs.writeFile("./db/db.json", JSON.stringify(notes), error => {
+        fs.writeFile("./db/db.json",JSON.stringify(notes), error => {
             if(error) {
                 throw error;
             }
