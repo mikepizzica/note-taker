@@ -30,4 +30,4 @@ THEN I am presented with empty fields to enter a new note title and the note’s
 https://github.com/mikepizzica/note-taker
 
 ## Screenshot
-![Screenshot of note taker](./assets/images/screenshot-note-taker.png)
+![Screenshot of note taker](./public/assets/images/screenshot-note-taker.png)
