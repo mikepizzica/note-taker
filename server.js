@@ -17,7 +17,7 @@ app.get('/notes', (req, res) => {
 app.get('/api/notes', (req, res) => {
     console.log("in the api routes");
     fs.readFile('./db/db.json', (error, results) => {
-        if(error) {
+        if (error) {
             throw error;
         }
         else {
@@ -29,49 +29,44 @@ app.get('/api/notes', (req, res) => {
 app.post('/api/notes', (req, res) => {
     console.log(req.body);
     fs.readFile('./db/db.json', (error, results) => {
-    if(error) {
-        throw error;
-    }
-    else {
-        var notes = JSON.parse(results);
-        var newNote = {
-            title: req.body.title,
-            text: req.body.text,
-            id: uuid.v1()
+        if (error) {
+            throw error;
         }
-        notes.push(newNote);
-        console.log("this is the old", notes);
-        fs.writeFile("./db/db.json",JSON.stringify(notes), error => {
-            if(error) {
-                throw error;
+        else {
+            var notes = JSON.parse(results);
+            var newNote = {
+                title: req.body.title,
+                text: req.body.text,
+                id: uuid.v1()
             }
-            else {
-                res.send(req.body);
-            }
-        })
-    }
-        })
+            notes.push(newNote);
+            console.log("this is the old", notes);
+            fs.writeFile("./db/db.json", JSON.stringify(notes), error => {
+                if (error) {
+                    throw error;
+                }
+                else {
+                    res.send(req.body);
+                }
+            })
+        }
+    })
 });
 
-app.delete('/api/notes/:id', (req, res) => {
-    if(req.params.id) {
-        console.log("deleting note" + req.params.id);
-        // read in the file of your database
-        // when you find object with matching id,
-        // remove from array of objects
-        
-    }
-    else{
-        res.status(400).send("Please specify a noteId");
-    }
-
-    // console.log("DELETE Request Called for /api endpoint")
-    // res.send("DELETE Request Called")
-});
-
-app.get('*', (req, res) => {
-    console.log("in the *");
-    res.sendFile(path.join(__dirname, '/public/index.html'))
+app.delete("/api/notes/:id", function (req, res) {
+    const note = req.params.id;
+    fs.readFile(path.join(__dirname, "./db/db.json"), (err, data) => {
+        if (err) throw err;
+        const notes = JSON.parse(data);
+        const notesArr = notes.filter(item => {
+            return item.id !== note
+        });
+        fs.writeFile('./db/db.json', JSON.stringify(notesArr), (err, data) => {
+            console.log("note deleted")
+            if (err) throw err;
+            res.json(notesArr)
+        });
+    });
 });
 
 app.listen(PORT, () => {
