@@ -27,7 +27,7 @@ THEN I am presented with empty fields to enter a new note title and the note’s
 ```
 
 ## Link
-https://nameless-ravine-92026.herokuapp.com/
+https://note-taker-mike-pizzica.herokuapp.com/
 
 ## Screenshot
 ![Screenshot of note taker](./public/assets/images/screenshot-note-taker.png)
